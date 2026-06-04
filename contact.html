@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eliezer - Contact</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Elizer</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="collections.html">Collections</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-header">
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you</p>
+  </section>
+
+  <section class="contact-content">
+    <div class="contact-info">
+      <h3>Get In Touch</h3>
+      <p>Email: eliezer@gmail.com</p>
+      <p>Phone: +91 98765 43210</p>
+      <p>Location: Kochi, Kerala</p>
+    </div>
+    <form class="contact-form" onsubmit="submitForm(event)">
+      <input type="text" placeholder="Your Name" required/>
+      <input type="email" placeholder="Your Email" required/>
+      <input type="text" placeholder="Subject"/>
+      <textarea placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <div class="cart-popup" id="cartPopup">
+    <p id="cartMessage">Message sent successfully!</p>
+  </div>
+
+  <footer>
+    <p>© 2025 Eliezer Jewellery. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

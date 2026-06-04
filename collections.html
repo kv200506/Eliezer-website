@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eliezer - Collections</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Eliezer</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="collections.html" class="active">Collections</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-header">
+    <h1>Our Collections</h1>
+    <p>Find your perfect piece</p>
+  </section>
+
+  <section class="products">
+    <div class="filter-buttons">
+      <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+      <button class="filter-btn" onclick="filterProducts('Chains')">Chains</button>
+      <button class="filter-btn" onclick="filterProducts('ring')">Rings</button>
+      <button class="filter-btn" onclick="filterProducts('earring')">Earrings</button>
+      <button class="filter-btn" onclick="filterProducts('bracelets')">Bracelets</button>
+    </div>
+
+    <div class="product-grid">
+      <div class="card" data-category="chains">
+        <div class="card-img"></div>
+        <h3>Chains</h3>
+        <p class="price">₹499</p>
+        <button onclick="addToCart('Chains', 499)">Add to Cart</button>
+      </div>
+      <div class="card" data-category="ring">
+        <div class="card-img"></div>
+        <h3>Ring</h3>
+        <p class="price">₹499</p>
+        <button onclick="addToCart('Ring', 499)">Add to Cart</button>
+      </div>
+      <div class="card" data-category="earring">
+        <div class="card-img"></div>
+        <h3>Earrings</h3>
+        <p class="price">₹499</p>
+        <button onclick="addToCart(' Earrings', 499)">Add to Cart</button>
+      </div>
+      <div class="card" data-category="necklace">
+        <div class="card-img"></div>
+        <h3>Bracelet</h3>
+        <p class="price">₹499</p>
+        <button onclick="addToCart('Bracelets', 499)">Add to Cart</button>
+      </div>
+      <div class="card" data-category="ring">
+        <div class="card-img"></div>
+        <h3>Gold Ring</h3>
+        <p class="price">₹8,499</p>
+        <button onclick="addToCart('Gold Ring', 8499)">Add to Cart</button>
+      </div>
+      <div class="card" data-category="earring">
+        <div class="card-img"></div>
+        <h3>Earrings</h3>
+        <p class="price">₹3,299</p>
+        <button onclick="addToCart('Gold Earrings', 3299)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="cart-popup" id="cartPopup">
+    <p id="cartMessage">Item added to cart!</p>
+  </div>
+
+  <footer>
+    <p>© 2025 Eliezer Jewellery. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
