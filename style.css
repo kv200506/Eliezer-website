@@ -60,6 +60,7 @@ body {
   justify-content: center;
   text-align: center;
   color: white;
+  padding: 20px;
 }
 
 .hero h1 {
@@ -142,6 +143,7 @@ body {
   justify-content: center;
   gap: 16px;
   margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
 .filter-btn {
@@ -342,4 +344,134 @@ footer {
   text-align: center;
   padding: 20px;
   font-size: 13px;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+
+  .navbar {
+    padding: 16px 20px;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .nav-links {
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    border-right: none;
+    border-bottom: 1px solid #333;
+  }
+
+  .products {
+    padding: 40px 20px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    padding: 40px 20px;
+  }
+
+  .contact-content {
+    grid-template-columns: 1fr;
+    padding: 40px 20px;
+  }
+
+  .filter-buttons {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .page-header h1 {
+    font-size: 30px;
+  }
+}
+
+/* Mobile phones (480px and below) */
+@media (max-width: 480px) {
+
+  .navbar {
+    padding: 14px 16px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .btn {
+    padding: 12px 28px;
+    font-size: 14px;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .card-img {
+    height: 160px;
+  }
+
+  .about-box {
+    padding: 20px;
+  }
+
+  .contact-content {
+    padding: 30px 16px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .page-header {
+    padding: 40px 16px;
+  }
+
+  .page-header h1 {
+    font-size: 26px;
+  }
 }
