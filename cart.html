@@ -29,10 +29,8 @@
     <div id="cartItems" class="cart-items">
       <p class="empty-cart">Your cart is empty! <a href="collections.html">Shop Now</a></p>
     </div>
-
     <div class="cart-summary" id="cartSummary" style="display:none;">
       <h3>Order Summary</h3>
-
       <div class="summary-row">
         <span>Subtotal</span>
         <span id="subtotal">₹0</span>
@@ -45,15 +43,12 @@
         <span>Total</span>
         <span id="total">₹0</span>
       </div>
-
-      <!-- Customer Details Form -->
       <div class="customer-form">
         <h4>Your Details</h4>
         <input type="text" id="customerName" placeholder="Your Full Name" required/>
         <input type="tel" id="customerPhone" placeholder="Your Phone Number" required/>
         <input type="text" id="customerAddress" placeholder="Delivery Address" required/>
       </div>
-
       <button class="checkout-btn" onclick="checkout()">
         📱 Order via WhatsApp
       </button>
@@ -67,7 +62,7 @@
 
   <script>
     function loadCart() {
-      const cart = JSON.parse(localStorage.getItem('elizerCart')) || [];
+      const cart = JSON.parse(localStorage.getItem('eliezerCart')) || [];
       const cartItems = document.getElementById('cartItems');
       const cartSummary = document.getElementById('cartSummary');
       const cartCount = document.getElementById('cartCount');
@@ -110,29 +105,29 @@
     }
 
     function changeQuantity(index, change) {
-      const cart = JSON.parse(localStorage.getItem('elizerCart')) || [];
+      const cart = JSON.parse(localStorage.getItem('eliezerCart')) || [];
       cart[index].quantity += change;
       if (cart[index].quantity <= 0) {
         cart.splice(index, 1);
       }
-      localStorage.setItem('elizerCart', JSON.stringify(cart));
+      localStorage.setItem('eliezerCart', JSON.stringify(cart));
       loadCart();
     }
 
     function removeItem(index) {
-      const cart = JSON.parse(localStorage.getItem('elizerCart')) || [];
+      const cart = JSON.parse(localStorage.getItem('eliezerCart')) || [];
       cart.splice(index, 1);
-      localStorage.setItem('elizerCart', JSON.stringify(cart));
+      localStorage.setItem('eliezerCart', JSON.stringify(cart));
       loadCart();
     }
 
     function clearCart() {
-      localStorage.removeItem('elizerCart');
+      localStorage.removeItem('eliezerCart');
       loadCart();
     }
 
     function checkout() {
-      const cart = JSON.parse(localStorage.getItem('elizerCart')) || [];
+      const cart = JSON.parse(localStorage.getItem('eliezerCart')) || [];
 
       if (cart.length === 0) {
         alert('Your cart is empty!');
@@ -148,7 +143,6 @@
         return;
       }
 
-      // Build WhatsApp message
       let message = '🛍️ *New Order from Eliezer Website!*\n\n';
       message += `👤 *Customer Name:* ${name}\n`;
       message += `📞 *Phone:* ${phone}\n`;
@@ -164,12 +158,10 @@
       message += `\n💰 *Total Amount: ₹${total.toLocaleString()}*\n`;
       message += '\n✅ Please confirm my order. Thank you!';
 
-      // Your WhatsApp number — replace with your number
-      const phoneNumber = '918281831092';
-
+      // Replace with your WhatsApp number
+      const phoneNumber = '919876543210';
       const encodedMessage = encodeURIComponent(message);
       const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
       window.open(whatsappURL, '_blank');
     }
 

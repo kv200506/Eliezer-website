@@ -55,7 +55,7 @@
         const products = await response.json();
         displayProducts(products);
       } catch (error) {
-        document.getElementById('productGrid').innerHTML = '<p style="text-align:center;color:red;">Error loading products. Make sure backend is running!</p>';
+        document.getElementById('productGrid').innerHTML = '<p style="text-align:center;color:red;">Error loading products!</p>';
       }
     }
 
@@ -88,14 +88,14 @@
     }
 
     function addToCart(name, price) {
-      const cart = JSON.parse(localStorage.getItem('elizerCart')) || [];
+      const cart = JSON.parse(localStorage.getItem('eliezerCart')) || [];
       const existingItem = cart.find(item => item.name === name);
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
         cart.push({ name, price, quantity: 1 });
       }
-      localStorage.setItem('elizerCart', JSON.stringify(cart));
+      localStorage.setItem('eliezerCart', JSON.stringify(cart));
       const popup = document.getElementById('cartPopup');
       const message = document.getElementById('cartMessage');
       message.textContent = `${name} added to cart!`;
