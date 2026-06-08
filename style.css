@@ -663,3 +663,32 @@ footer {
     font-size: 26px;
   }
 }
+
+/* Customer Form in Cart */
+.customer-form {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.customer-form h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.customer-form input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.customer-form input:focus {
+  border-color: #d4af37;
+}

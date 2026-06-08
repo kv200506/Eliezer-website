@@ -29,8 +29,10 @@
     <div id="cartItems" class="cart-items">
       <p class="empty-cart">Your cart is empty! <a href="collections.html">Shop Now</a></p>
     </div>
+
     <div class="cart-summary" id="cartSummary" style="display:none;">
       <h3>Order Summary</h3>
+
       <div class="summary-row">
         <span>Subtotal</span>
         <span id="subtotal">₹0</span>
@@ -43,7 +45,18 @@
         <span>Total</span>
         <span id="total">₹0</span>
       </div>
-      <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+
+      <!-- Customer Details Form -->
+      <div class="customer-form">
+        <h4>Your Details</h4>
+        <input type="text" id="customerName" placeholder="Your Full Name" required/>
+        <input type="tel" id="customerPhone" placeholder="Your Phone Number" required/>
+        <input type="text" id="customerAddress" placeholder="Delivery Address" required/>
+      </div>
+
+      <button class="checkout-btn" onclick="checkout()">
+        📱 Order via WhatsApp
+      </button>
       <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
     </div>
   </section>
@@ -119,7 +132,45 @@
     }
 
     function checkout() {
-      alert('Checkout coming soon! Razorpay payment will be integrated here.');
+      const cart = JSON.parse(localStorage.getItem('elizerCart')) || [];
+
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+
+      const name = document.getElementById('customerName').value.trim();
+      const phone = document.getElementById('customerPhone').value.trim();
+      const address = document.getElementById('customerAddress').value.trim();
+
+      if (!name || !phone || !address) {
+        alert('Please fill in your name, phone number and address!');
+        return;
+      }
+
+      // Build WhatsApp message
+      let message = '🛍️ *New Order from Eliezer Website!*\n\n';
+      message += `👤 *Customer Name:* ${name}\n`;
+      message += `📞 *Phone:* ${phone}\n`;
+      message += `📍 *Address:* ${address}\n\n`;
+      message += '*Items Ordered:*\n';
+
+      let total = 0;
+      cart.forEach(item => {
+        message += `• ${item.name} x${item.quantity} = ₹${(item.price * item.quantity).toLocaleString()}\n`;
+        total += item.price * item.quantity;
+      });
+
+      message += `\n💰 *Total Amount: ₹${total.toLocaleString()}*\n`;
+      message += '\n✅ Please confirm my order. Thank you!';
+
+      // Your WhatsApp number — replace with your number
+      const phoneNumber = '918281831092';
+
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+      window.open(whatsappURL, '_blank');
     }
 
     loadCart();
