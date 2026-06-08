@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Eliezer - Collections</title>
+  <title>Elizer - Collections</title>
   <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet"/>
 </head>
 <body>
 
   <nav class="navbar">
-    <div class="logo">Eliezer</div>
+    <div class="logo">Elizer</div>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="collections.html" class="active">Collections</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li><a href="cart.html">Cart 🛒</a></li>
     </ul>
   </nav>
 
@@ -26,50 +27,13 @@
 
   <section class="products">
     <div class="filter-buttons">
-      <button class="filter-btn active" onclick="filterProducts('all')">All</button>
-      <button class="filter-btn" onclick="filterProducts('Chains')">Chains</button>
-      <button class="filter-btn" onclick="filterProducts('ring')">Rings</button>
-      <button class="filter-btn" onclick="filterProducts('earring')">Earrings</button>
-      <button class="filter-btn" onclick="filterProducts('bracelets')">Bracelets</button>
+      <button class="filter-btn active" onclick="filterProducts('all', event)">All</button>
+      <button class="filter-btn" onclick="filterProducts('necklace', event)">Necklaces</button>
+      <button class="filter-btn" onclick="filterProducts('ring', event)">Rings</button>
+      <button class="filter-btn" onclick="filterProducts('earring', event)">Earrings</button>
     </div>
-
-    <div class="product-grid">
-      <div class="card" data-category="chains">
-        <div class="card-img"></div>
-        <h3>Chains</h3>
-        <p class="price">₹499</p>
-        <button onclick="addToCart('Chains', 499)">Add to Cart</button>
-      </div>
-      <div class="card" data-category="ring">
-        <div class="card-img"></div>
-        <h3>Ring</h3>
-        <p class="price">₹499</p>
-        <button onclick="addToCart('Ring', 499)">Add to Cart</button>
-      </div>
-      <div class="card" data-category="earring">
-        <div class="card-img"></div>
-        <h3>Earrings</h3>
-        <p class="price">₹499</p>
-        <button onclick="addToCart(' Earrings', 499)">Add to Cart</button>
-      </div>
-      <div class="card" data-category="necklace">
-        <div class="card-img"></div>
-        <h3>Bracelet</h3>
-        <p class="price">₹499</p>
-        <button onclick="addToCart('Bracelets', 499)">Add to Cart</button>
-      </div>
-      <div class="card" data-category="ring">
-        <div class="card-img"></div>
-        <h3>Gold Ring</h3>
-        <p class="price">₹8,499</p>
-        <button onclick="addToCart('Gold Ring', 8499)">Add to Cart</button>
-      </div>
-      <div class="card" data-category="earring">
-        <div class="card-img"></div>
-        <h3>Earrings</h3>
-        <p class="price">₹3,299</p>
-        <button onclick="addToCart('Gold Earrings', 3299)">Add to Cart</button>
-      </div>
+    <div class="product-grid" id="productGrid">
+      <p style="text-align:center;">Loading products...</p>
     </div>
   </section>
 
@@ -78,9 +42,69 @@
   </div>
 
   <footer>
-    <p>© 2025 Eliezer Jewellery. All rights reserved.</p>
+    <p>© 2025 Elizer Jewellery. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    const API_URL = 'http://localhost:5000';
+
+    async function fetchProducts(category = '') {
+      try {
+        const url = category ? `${API_URL}/api/products?category=${category}` : `${API_URL}/api/products`;
+        const response = await fetch(url);
+        const products = await response.json();
+        displayProducts(products);
+      } catch (error) {
+        document.getElementById('productGrid').innerHTML = '<p style="text-align:center;color:red;">Error loading products. Make sure backend is running!</p>';
+      }
+    }
+
+    function displayProducts(products) {
+      const grid = document.getElementById('productGrid');
+      if (products.length === 0) {
+        grid.innerHTML = '<p style="text-align:center;">No products found!</p>';
+        return;
+      }
+      grid.innerHTML = products.map(product => `
+        <div class="card">
+          <div class="card-img"></div>
+          <h3>${product.name}</h3>
+          <p class="price">₹${product.price.toLocaleString()}</p>
+          <p style="font-size:13px;color:#777;margin-bottom:10px;">${product.description}</p>
+          <button onclick="addToCart('${product.name}', ${product.price})">Add to Cart</button>
+        </div>
+      `).join('');
+    }
+
+    function filterProducts(category, event) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      if (category === 'all') {
+        fetchProducts();
+      } else {
+        fetchProducts(category);
+      }
+    }
+
+    function addToCart(name, price) {
+      const cart = JSON.parse(localStorage.getItem('elizerCart')) || [];
+      const existingItem = cart.find(item => item.name === name);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+      localStorage.setItem('elizerCart', JSON.stringify(cart));
+      const popup = document.getElementById('cartPopup');
+      const message = document.getElementById('cartMessage');
+      message.textContent = `${name} added to cart!`;
+      popup.classList.add('show');
+      setTimeout(() => popup.classList.remove('show'), 2500);
+    }
+
+    fetchProducts();
+  </script>
+
 </body>
 </html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elizer - Cart</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Elizer</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="collections.html">Collections</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="cart.html" class="active">Cart <span id="cartCount" class="cart-count">0</span></a></li>
+    </ul>
+  </nav>
+
+  <section class="page-header">
+    <h1>Your Cart</h1>
+    <p>Review your selected items</p>
+  </section>
+
+  <section class="cart-section">
+    <div id="cartItems" class="cart-items">
+      <p class="empty-cart">Your cart is empty! <a href="collections.html">Shop Now</a></p>
+    </div>
+    <div class="cart-summary" id="cartSummary" style="display:none;">
+      <h3>Order Summary</h3>
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="subtotal">₹0</span>
+      </div>
+      <div class="summary-row">
+        <span>Delivery</span>
+        <span style="color:green;">FREE</span>
+      </div>
+      <div class="summary-row total">
+        <span>Total</span>
+        <span id="total">₹0</span>
+      </div>
+      <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+      <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Elizer Jewellery. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem('elizerCart')) || [];
+      const cartItems = document.getElementById('cartItems');
+      const cartSummary = document.getElementById('cartSummary');
+      const cartCount = document.getElementById('cartCount');
+
+      cartCount.textContent = cart.length;
+
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<p class="empty-cart">Your cart is empty! <a href="collections.html">Shop Now</a></p>';
+        cartSummary.style.display = 'none';
+        return;
+      }
+
+      cartSummary.style.display = 'block';
+      let total = 0;
+
+      cartItems.innerHTML = cart.map((item, index) => {
+        total += item.price * item.quantity;
+        return `
+          <div class="cart-item">
+            <div class="cart-item-img"></div>
+            <div class="cart-item-details">
+              <h3>${item.name}</h3>
+              <p class="price">₹${item.price.toLocaleString()}</p>
+              <div class="quantity-controls">
+                <button onclick="changeQuantity(${index}, -1)">-</button>
+                <span>${item.quantity}</span>
+                <button onclick="changeQuantity(${index}, 1)">+</button>
+              </div>
+            </div>
+            <div class="cart-item-total">
+              <p>₹${(item.price * item.quantity).toLocaleString()}</p>
+              <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('subtotal').textContent = `₹${total.toLocaleString()}`;
+      document.getElementById('total').textContent = `₹${total.toLocaleString()}`;
+    }
+
+    function changeQuantity(index, change) {
+      const cart = JSON.parse(localStorage.getItem('elizerCart')) || [];
+      cart[index].quantity += change;
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+      }
+      localStorage.setItem('elizerCart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    function removeItem(index) {
+      const cart = JSON.parse(localStorage.getItem('elizerCart')) || [];
+      cart.splice(index, 1);
+      localStorage.setItem('elizerCart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    function clearCart() {
+      localStorage.removeItem('elizerCart');
+      loadCart();
+    }
+
+    function checkout() {
+      alert('Checkout coming soon! Razorpay payment will be integrated here.');
+    }
+
+    loadCart();
+  </script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Eliezer - Contact</title>
+  <title>Elizer - Contact</title>
   <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet"/>
 </head>
@@ -16,6 +16,7 @@
       <li><a href="collections.html">Collections</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="cart.html">Cart 🛒</a></li>
     </ul>
   </nav>
 
@@ -27,10 +28,9 @@
   <section class="contact-content">
     <div class="contact-info">
       <h3>Get In Touch</h3>
-      <p>Email: eliezer@gmail.com</p>
-      <p>Phone: +91 98765 43210</p>
-      <p>Instagram: eliezerr.in</p>
-      <p>Location: Kochi, Kerala</p>
+      <p>📧 elizer@gmail.com</p>
+      <p>📞 +91 98765 43210</p>
+      <p>📍 Kanhangad, Kerala</p>
     </div>
     <form class="contact-form" onsubmit="submitForm(event)">
       <input type="text" placeholder="Your Name" required/>
@@ -42,13 +42,24 @@
   </section>
 
   <div class="cart-popup" id="cartPopup">
-    <p id="cartMessage">Message sent successfully!</p>
+    <p id="cartMessage">Message sent!</p>
   </div>
 
   <footer>
-    <p>© 2025 Eliezer Jewellery. All rights reserved.</p>
+    <p>© 2025 Elizer Jewellery. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    function submitForm(event) {
+      event.preventDefault();
+      const popup = document.getElementById('cartPopup');
+      const message = document.getElementById('cartMessage');
+      message.textContent = 'Message sent successfully!';
+      popup.classList.add('show');
+      setTimeout(() => popup.classList.remove('show'), 2500);
+      event.target.reset();
+    }
+  </script>
+
 </body>
 </html>
